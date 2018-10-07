@@ -20,7 +20,7 @@ function parse(html, source){
     const points = post.find('button[aria-label=upvote]').parent().children('div').text();
 
     const title = title_tag.text();
-    const url   = link_tag.attr('href');
+    const url   = 'https://www.reddit.com' + link_tag.attr('href');
 
     const QUERY = 'INSERT INTO "crawls" ("story_url", "source", "title", "comments", "crawled_at") VALUES($1, $2, $3, $4, $5) ON CONFLICT DO NOTHING;';
     db.query(QUERY,[url, source, title, comments_link, new Date() ], (err) => {
@@ -36,7 +36,7 @@ function parse(html, source){
       title:title,
       url:url,
       comments:comments,
-      comments_link:comments_link,
+      comments_link: comments_link,
       points: points
     };
 
